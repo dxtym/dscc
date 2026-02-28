@@ -1,15 +1,30 @@
 version: '3.8'
 services:
-  postgres:
-    image: postgres:alpine
+  db:
+    image: postgres:16-alpine
     container_name: pg
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: shop
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  web:
+    build: .
+    container_name: web
+    env_file: .env
+    environment:
+      DB_HOST: db
+      ALLOWED_HOSTS: localhost,127.0.0.1
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   postgres_data:
