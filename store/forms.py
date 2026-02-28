@@ -16,7 +16,7 @@ class RegisterForm(UserCreationForm):
 
 
 class OrderCreateForm(forms.Form):
-    product = forms.ModelChoiceField(queryset=Product.objects.filter(is_available=True))
+    product = forms.ModelChoiceField(queryset=Product.objects.all())
     quantity = forms.IntegerField(min_value=1, max_value=100)
 
 
@@ -29,4 +29,4 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'description', 'price', 'category', 'tags', 'is_available')
+        fields = ('name', 'description', 'price', 'category', 'tags', 'image')

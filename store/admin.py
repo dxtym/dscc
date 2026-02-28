@@ -15,10 +15,9 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'is_available')
-    list_filter = ('category', 'tags', 'is_available')
+    list_display = ('name', 'category', 'price')
+    list_filter = ('category', 'tags')
     search_fields = ('name',)
-    list_editable = ('is_available',)
     filter_horizontal = ('tags',)
 
 

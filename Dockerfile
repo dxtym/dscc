@@ -17,7 +17,9 @@ COPY --from=builder /app/.venv /app/.venv
 
 COPY --chown=app:app . .
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x entrypoint.sh && \
+    mkdir -p /app/staticfiles /app/media && \
+    chown -R app:app /app/staticfiles /app/media
 
 USER app
 
