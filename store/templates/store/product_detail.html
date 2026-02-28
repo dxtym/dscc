@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-7">
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'store:product_list' %}">Products</a></li>
+        <li class="breadcrumb-item active">{{ product.name }}</li>
+      </ol>
+    </nav>
+
+    <h2>{{ product.name }}</h2>
+    <p class="text-muted">{{ product.category }}</p>
+    <p class="fs-4 fw-bold">${{ product.price }}</p>
+    {% if product.description %}
+      <p>{{ product.description }}</p>
+    {% endif %}
+    {% with tags=product.tags.all %}
+      {% if tags %}
+        <div class="mb-3">
+          {% for tag in tags %}
+            <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="mt-4 d-flex gap-2">
+      <a href="{% url 'store:order_create' %}?product={{ product.pk }}" class="btn btn-primary">Order this product</a>
+      <a href="{% url 'store:product_list' %}" class="btn btn-outline-secondary">Back to products</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
