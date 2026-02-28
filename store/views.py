@@ -9,7 +9,7 @@ from .models import Category, Order, OrderItem, Product
 
 def product_list(request):
     categories = Category.objects.all()
-    products = Product.objects.filter(is_available=True)
+    products = Product.objects.all()
     category_slug = request.GET.get('category')
     selected_category = None
     if category_slug:
@@ -23,7 +23,7 @@ def product_list(request):
 
 
 def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk, is_available=True)
+    product = get_object_or_404(Product, pk=pk)
     return render(request, 'store/product_detail.html', {'product': product})
 
 
@@ -44,7 +44,7 @@ def register(request):
 @staff_member_required
 def product_create(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
             return redirect('store:product_detail', pk=product.pk)

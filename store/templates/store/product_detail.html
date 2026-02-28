@@ -3,7 +3,12 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row g-4">
+  {% if product.image %}
+  <div class="col-md-5">
+    <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+  </div>
+  {% endif %}
   <div class="col-md-7">
     <nav aria-label="breadcrumb" class="mb-3">
       <ol class="breadcrumb">

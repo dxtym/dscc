@@ -9,7 +9,7 @@
     <div class="card shadow-sm">
       <div class="card-body p-4">
         <h3 class="card-title mb-4">Add Product</h3>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="mb-3">
@@ -64,9 +64,15 @@
             </div>
           </div>
 
-          <div class="mb-3 form-check">
-            {% render_field form.is_available class="form-check-input" %}
-            <label class="form-check-label" for="{{ form.is_available.id_for_label }}">Available</label>
+          <div class="mb-3">
+            <label for="{{ form.image.id_for_label }}" class="form-label">Product Image</label>
+            {% if form.image.errors %}
+              {% render_field form.image class="form-control is-invalid" %}
+              {% for error in form.image.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+            {% else %}
+              {% render_field form.image class="form-control" %}
+            {% endif %}
+            <div class="form-text">Images only (JPG, PNG, GIF). Optional.</div>
           </div>
 
           <div class="d-flex gap-2 mt-3">
