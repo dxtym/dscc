@@ -1,6 +1,10 @@
+import os
+
 from django.contrib.auth.hashers import make_password
 from django.db import migrations
+from dotenv import load_dotenv
 
+load_dotenv()
 
 CATEGORIES = [
     ('Electronics', 'electronics'),
@@ -19,9 +23,9 @@ def seed_data(apps, schema_editor):
 
     User = apps.get_model('auth', 'User')
     User.objects.create(
-        username='admin',
-        password=make_password('password'),
-        email='admin@example.com',
+        username=os.getenv('ADMIN_USERNAME'),
+        password=make_password(os.getenv('ADMIN_PASSWORD')),
+        email=os.getenv('ADMIN_EMAIL'),
         is_staff=True,
         is_superuser=True,
         is_active=True,
