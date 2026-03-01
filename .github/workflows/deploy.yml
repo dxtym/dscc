@@ -45,4 +45,6 @@ jobs:
             export ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
             docker compose -f docker-compose.yml -f docker-compose.prod.yml pull web
             docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web python manage.py migrate
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web python manage.py collectstatic --noinput
             docker image prune -f
