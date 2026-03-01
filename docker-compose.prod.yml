@@ -1,0 +1,7 @@
+services:
+  web:
+    build: !reset null
+    image: ${DOCKER_IMAGE}
+    environment:
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      DB_HOST: db
