@@ -31,6 +31,9 @@ DEBUG = os.getenv('DEBUG', 'true').lower() == 'true'
 _allowed = os.getenv('ALLOWED_HOSTS', '')
 ALLOWED_HOSTS = [h.strip() for h in _allowed.split(',') if h.strip()]
 
+_origins = os.getenv('CSRF_TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in _origins.split(',') if o.strip()]
+
 
 # Application definition
 
