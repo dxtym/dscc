@@ -23,9 +23,9 @@ def seed_data(apps, schema_editor):
 
     User = apps.get_model('auth', 'User')
     User.objects.create(
-        username=os.getenv('ADMIN_USERNAME'),
-        password=make_password(os.getenv('ADMIN_PASSWORD')),
-        email=os.getenv('ADMIN_EMAIL'),
+        username=os.getenv('ADMIN_USERNAME', 'admin'),
+        password=make_password(os.getenv('ADMIN_PASSWORD', 'password')),
+        email=os.getenv('ADMIN_EMAIL', ''),
         is_staff=True,
         is_superuser=True,
         is_active=True,
