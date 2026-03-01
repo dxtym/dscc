@@ -13,3 +13,14 @@ dependencies = [
     "psycopg2-binary>=2.9.11",
     "python-dotenv>=1.2.1",
 ]
+
+[dependency-groups]
+dev = [
+    "flake8>=7.0",
+    "pytest>=8.0",
+    "pytest-django>=4.9",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "shop.test_settings"
+python_files = ["tests.py", "test_*.py"]
