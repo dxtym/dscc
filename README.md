@@ -2,6 +2,10 @@
 
 A shopping app where admins manage products and users browse and place orders.
 
+<img src="./.github/assets/screenshot.png" width="900" />
+
+**Live site**: https://dscc-shop-00019248.duckdns.org
+
 ## Features
 
 - Secure access via end-to-end authentication
@@ -34,6 +38,13 @@ uv run python manage.py migrate
 uv run python manage.py runserver
 ```
 
+## Testing
+
+```bash
+pytest
+pytest -v
+```
+
 ## Deployment
 
 **Requirements:** Docker, Docker Compose
@@ -56,3 +67,11 @@ docker compose up --build -d
 - SECRET_KEY
 - DEBUG
 - ALLOWED_HOSTS
+
+## CI/CD Pipeline
+
+GitHub Actions workflow on push to `main`:
+
+1. **Lint and Test** — Run flake8 and pytest
+2. **Build and Push** — Push image to Docker Hub
+3. **Deploy** — SSH into server, pull image, run migrations
